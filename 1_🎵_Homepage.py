@@ -14,12 +14,14 @@ from streamlit_extras.app_logo import add_logo
 
 #Imports for ml model
 import numpy as np
-import mediapipe as mp
-from keras.models import load_model
+# import mediapipe as mp # Moved to processor
+# from keras.models import load_model # Moved to processor
+
+from emotion_processor import EmotionProcessor
 
 
 st.set_page_config(
-    page_title="Vibescape",
+    page_title="Moodiy",
     page_icon="🎵",
 )
 
@@ -120,16 +122,16 @@ right: 2rem;
 """
 add_logo("https://github.com/NebulaTris/vibescape/blob/main/logo.png?raw=true")
 st.markdown(page_bg_img, unsafe_allow_html=True)
-st.title("Vibescape 🎉🎶")
+st.title("Moodiy 🎉🎶")
 st.sidebar.success("Select a page below.")
-st.sidebar.text("Developed by Shambhavi")
+st.sidebar.text("Developed by You")
 
 st.markdown("**Hey there, emotion explorer! Are you ready for a wild ride through the rollercoaster of feelings?** 🎢🎵")
-st.markdown("**Welcome to Vibescape, where our snazzy AI meets your wacky emotional world head-on! We've got our virtual goggles on (nope, not really, but it sounds cool** 😎 **) to analyze your emotions using a webcam. And what do we do with all those emotions, you ask? We turn them into the most toe-tapping, heartwarming, and occasionally hilarious music playlists you've ever heard!** 🕺💃")
-st.markdown("**You've heard of Spotify, SoundCloud, and YouTube, right? Well, hold onto your hats because Vibescape combines these musical behemoths into one epic entertainment extravaganza! Now you can dive into your favorite streaming services with a twist — they'll be serving up songs based on your mood!** 🎶")
-st.markdown("**Feeling like a happy-go-lucky panda today? We've got a playlist for that! Or perhaps you've got the moody blues? No worries, Vibescape has your back. Our AI wizardry detects your vibes and serves up the tunes that match your moment.** 🐼🎉")
-st.markdown("**So, get ready for a whirlwind of emotions and music. Vibescape is here to turn your webcam into a mood ring, your screen into a dance floor, and your heart into a DJ booth. What's next? Well, that's entirely up to you and your ever-changing feelings!**")
-st.markdown("**So, strap in** 🚀 **, hit that webcam** 📷 **, and let the musical journey begin! Vibescape is your ticket to a rollercoaster of emotions, all set to your favorite tunes.** 🎢🎵")
+st.markdown("**Welcome to Moodiy, where our snazzy AI meets your wacky emotional world head-on! We've got our virtual goggles on (nope, not really, but it sounds cool** 😎 **) to analyze your emotions using a webcam. And what do we do with all those emotions, you ask? We turn them into the most toe-tapping, heartwarming, and occasionally hilarious music playlists you've ever heard!** 🕺💃")
+st.markdown("**You've heard of Spotify, SoundCloud, and YouTube, right? Well, hold onto your hats because Moodiy combines these musical behemoths into one epic entertainment extravaganza! Now you can dive into your favorite streaming services with a twist — they'll be serving up songs based on your mood!** 🎶")
+st.markdown("**Feeling like a happy-go-lucky panda today? We've got a playlist for that! Or perhaps you've got the moody blues? No worries, Moodiy has your back. Our AI wizardry detects your vibes and serves up the tunes that match your moment.** 🐼🎉")
+st.markdown("**So, get ready for a whirlwind of emotions and music. Moodiy is here to turn your webcam into a mood ring, your screen into a dance floor, and your heart into a DJ booth. What's next? Well, that's entirely up to you and your ever-changing feelings!**")
+st.markdown("**So, strap in** 🚀 **, hit that webcam** 📷 **, and let the musical journey begin! Moodiy is your ticket to a rollercoaster of emotions, all set to your favorite tunes.** 🎢🎵")
 
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{
@@ -139,68 +141,29 @@ RTC_CONFIGURATION = RTCConfiguration(
 # CWD path
 HERE = Path(__file__).parent
 
-model = load_model("model.h5")
-label = np.load("label.npy")
 
-holistic = mp.solutions.holistic
-hands = mp.solutions.hands
-holis = holistic.Holistic()
-drawing = mp.solutions.drawing_utils
+# Validating emotion file existence
+try:
+    if not Path("emotion.npy").exists():
+        np.save("emotion.npy", np.array([""]))
+except Exception:
+    pass
 
 if "run" not in st.session_state:
     st.session_state["run"] = ""
-
-run = np.load("emotion.npy")[0]
 
 try:
     emotion = np.load("emotion.npy")[0]
 except:
     emotion = ""
 
-    
-class EmotionProcessor(VideoProcessorBase):
-    def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
-        frm = frame.to_ndarray(format="bgr24")
-        frm = cv2.flip(frm, 1)  
-        res = holis.process(cv2.cvtColor(frm, cv2.COLOR_BGR2RGB))
-        
-        lst = []
-        if res.face_landmarks:
-            for i in res.face_landmarks.landmark:
-                lst.append(i.x - res.face_landmarks.landmark[1].x)
-                lst.append(i.y - res.face_landmarks.landmark[1].y)
-        
-            if res.left_hand_landmarks:
-                for i in res.left_hand_landmarks.landmark:
-                    lst.append(i.x - res.left_hand_landmarks.landmark[8].x)
-                    lst.append(i.y - res.left_hand_landmarks.landmark[8].y)
-            else:
-                for i in range(42):
-                    lst.append(0.0)
-        
-            if res.right_hand_landmarks:
-                for i in res.right_hand_landmarks.landmark:
-                    lst.append(i.x - res.right_hand_landmarks.landmark[8].x)
-                    lst.append(i.y - res.right_hand_landmarks.landmark[8].y)
-            else:
-                for i in range(42):
-                    lst.append(0.0)
-        
-            lst = np.array(lst).reshape(1, -1)
-        
-            pred = label[np.argmax(model.predict(lst))]
-            print(pred)
-            cv2.putText(frm, pred, (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
-            
-            np.save("emotion.npy",np.array([pred]))
-            
-            emotion = pred
-       
-        drawing.draw_landmarks(frm, res.face_landmarks, holistic.FACEMESH_CONTOURS)
-        drawing.draw_landmarks(frm, res.left_hand_landmarks, hands.HAND_CONNECTIONS) 
-        drawing.draw_landmarks(frm, res.right_hand_landmarks, hands.HAND_CONNECTIONS)
-    
-        return av.VideoFrame.from_ndarray(frm, format="bgr24")
+if not emotion:
+    st.session_state["emotion"] = ""
+else:
+    st.session_state["emotion"] = emotion
+
+
+
     
 
 

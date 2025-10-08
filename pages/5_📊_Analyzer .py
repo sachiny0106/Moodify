@@ -11,8 +11,26 @@ import songrecommendations
 #from dotenv import load_dotenv
 #load_dotenv()
 
-SPOTIPY_CLIENT_ID = 'fcbb0f29936b4f8ba90c4a606e516a67'
-SPOTIPY_CLIENT_SECRET = '9b66b9a7c4ec4f2ba5fe21b6575da778'
+#from dotenv import load_dotenv
+#load_dotenv()
+
+# Load credentials from secrets or environment variables
+SPOTIPY_CLIENT_ID = st.secrets.get("SPOTIPY_CLIENT_ID")
+SPOTIPY_CLIENT_SECRET = st.secrets.get("SPOTIPY_CLIENT_SECRET")
+
+if not SPOTIPY_CLIENT_ID or not SPOTIPY_CLIENT_SECRET:
+    # Try loading from .env for local development if secrets are not found
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+        SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
+        SPOTIPY_CLIENT_SECRET = os.getenv("SPOTIPY_CLIENT_SECRET")
+    except Exception:
+        pass
+
+if not SPOTIPY_CLIENT_ID or not SPOTIPY_CLIENT_SECRET:
+    st.error("Spotify credentials not found. Please set them in .streamlit/secrets.toml or .env file.")
+    st.stop()
 
 auth_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -115,7 +133,7 @@ right: 2rem;
 }
 </style>
 """
-add_logo("https://github.com/NebulaTris/vibescape/blob/main/logo.png?raw=true")
+add_logo("https://github.com/NebulaTris/Moodiy/blob/main/logo.png?raw=true")
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -197,7 +215,7 @@ if selected_track is not None and len(tracks) > 0:
     else:
         st.write("Please select a track from the list")       
 
-st.sidebar.text("Developed by Shambhavi")
+st.sidebar.text("Developed by You")
 # elif selected_album is not None and len(albums) > 0:
 #     albums_list = albums['albums']['items']
 #     album_id = None
