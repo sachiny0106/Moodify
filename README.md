@@ -1,6 +1,6 @@
-# Moodiy 🎵
+# Moodify 🎵
 
-Moodiy is an emotion-based music recommender system that curates a personalized listening experience just for you. By analyzing your facial expressions in real-time, Moodiy detects your current mood and plays songs that match your vibe from Spotify, SoundCloud, or YouTube.
+Moodify is an emotion-based music recommender system that curates a personalized listening experience just for you. By analyzing your facial expressions in real-time, Moodify detects your current mood and plays songs that match your vibe from Spotify, SoundCloud, or YouTube.
 
 **Live Demo:** [Check it out here](https://vibescape.streamlit.app/) *(Note: Demo link might still reflect the old version)*
 
@@ -15,8 +15,8 @@ Moodiy is an emotion-based music recommender system that curates a personalized 
 
 1.  **Clone the repo:**
     ```bash
-    git clone https://github.com/yourusername/moodiy.git
-    cd moodiy
+    git clone https://github.com/yourusername/Moodify.git
+    cd Moodify
     ```
 
 2.  **Install dependencies:**
@@ -41,7 +41,7 @@ Moodiy is an emotion-based music recommender system that curates a personalized 
 
 2.  **Groove:**
     -   Allow camera access when prompted.
-    -   Let Moodiy scan your emotion.
+    -   Let Moodify scan your emotion.
     -   Navigate to your preferred music service from the sidebar and enjoy!
 
 ## Tech Stack

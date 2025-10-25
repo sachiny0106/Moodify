@@ -133,7 +133,7 @@ right: 2rem;
 }
 </style>
 """
-add_logo("https://github.com/NebulaTris/Moodiy/blob/main/logo.png?raw=true")
+add_logo("https://github.com/NebulaTris/Moodify/blob/main/logo.png?raw=true")
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 

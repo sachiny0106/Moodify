@@ -95,18 +95,18 @@ right: 2rem;
 }
 </style>
 """
-add_logo("https://github.com/NebulaTris/Moodiy/blob/main/logo.png?raw=true")
+add_logo("https://github.com/NebulaTris/Moodify/blob/main/logo.png?raw=true")
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
-st.title("❤️ Moodiy-Youtube")
-st.markdown(''':red[**Note : It is recommended that you scan your face , for Moodiy to groove with you!**]''')
+st.title("❤️ Moodify-Youtube")
+st.markdown(''':red[**Note : It is recommended that you scan your face , for Moodify to groove with you!**]''')
 
 st.sidebar.success("Youtube has been selected as your music player.")
 st.sidebar.text("Developed by You")
 
 
 if "run" not in st.session_state:
-    st.write("**Looks like you have skipped the face scan on the homepage and came here, just for music, just choose your vibe manually for Moodiy to groove with you!**")
+    st.write("**Looks like you have skipped the face scan on the homepage and came here, just for music, just choose your vibe manually for Moodify to groove with you!**")
     option = st.selectbox(
     'What''s your vibe today?',
     ('Happy', 'Sad', 'Angry','Fear','Surprise','Neutral'))
