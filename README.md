@@ -1,58 +1,60 @@
-[![header](vibescape.gif)](https://vibescape.streamlit.app/)</br></br>
+# Moodiy 🎵
 
-Vibescape is an emotion music recommender system that provides a unique and personalized music streaming experience. It utilizes facial emotion detection to analyze the user's emotions and recommend songs that match their mood. The application supports streaming from popular platforms such as Spotify, SoundCloud, and YouTube.
+Moodiy is an emotion-based music recommender system that curates a personalized listening experience just for you. By analyzing your facial expressions in real-time, Moodiy detects your current mood and plays songs that match your vibe from Spotify, SoundCloud, or YouTube.
 
-**Live Demo** <a href="https://vibescape.streamlit.app/">**here**</a>
+**Live Demo:** [Check it out here](https://vibescape.streamlit.app/) *(Note: Demo link might still reflect the old version)*
 
 ## Features
-- **Emotion-based Music Recommendation:** Vibescape uses facial emotion detection to analyze the user's emotions and recommends songs that match their mood.
-- **Streaming from Multiple Platforms:** Users can stream music from their favorite platforms including Spotify, SoundCloud, and YouTube.
-- **Personalized Playlists:** The application creates personalized playlists based on the user's emotions and preferences.
-- **User-Friendly Interface:** Vibescape offers an intuitive and easy-to-use interface for a seamless music streaming experience.
 
-## Installation and Setup
+-   **Emotion Recognition:** Uses a webcam to detect emotions like Happy, Sad, Angry, Fear, Surprise, and Neutral.
+-   **Multi-Platform Support:** Seamlessly integrates with Spotify, SoundCloud, and YouTube.
+-   **Smart Recommendations:** Automatically selects playlists that fit your detected mood.
+-   **Analyzer Tool:** Search for tracks and artists to visual their audio features (danceability, energy, etc.).
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/NebulaTris/vibescape.git
-   cd vibescape
-   ```
+## Installation
 
-2. Install the required dependencies using `pip`:
-   ```bash
-   pip install -r requirements.txt
-   ```
+1.  **Clone the repo:**
+    ```bash
+    git clone https://github.com/yourusername/moodiy.git
+    cd moodiy
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Setup Credentials:**
+    -   Create a file named `.env` in the root directory.
+    -   Add your Spotify API keys (get them from the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/)):
+        ```env
+        SPOTIPY_CLIENT_ID=your_client_id_here
+        SPOTIPY_CLIENT_SECRET=your_client_secret_here
+        ```
 
 ## Usage
 
-1. Run the Streamlit app:
-   ```bash
-   streamlit run 1_🎵_Homepage.py
-   ```
+1.  **Run the App:**
+    ```bash
+    streamlit run 1_🎵_Homepage.py
+    ```
 
-2. Open your web browser and go to `http://localhost:8501` to access the Vibescape application.
+2.  **Groove:**
+    -   Allow camera access when prompted.
+    -   Let Moodiy scan your emotion.
+    -   Navigate to your preferred music service from the sidebar and enjoy!
 
-## Emotion Detection
+## Tech Stack
 
-Vibescape uses facial emotion detection to analyze the user's emotions. Make sure your device has a camera enabled to utilize this feature effectively.
-
-## Supported Platforms
-
-Vibescape supports music streaming from the following platforms:
-- Spotify
-- SoundCloud
-- YouTube
+-   **Frontend:** Streamlit
+-   **Computer Vision:** MediaPipe, OpenCV
+-   **ML Model:** Keras/TensorFlow
+-   **APIs:** Spotify Web API
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to Vibescape, please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature/bugfix.
-3. Commit your changes and push to your fork.
-4. Submit a pull request with a detailed description of your changes.
+Feel free to fork this project and submit PRs. If you find any bugs, just open an issue!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
+MIT License. See [LICENSE](LICENSE) for more info.
