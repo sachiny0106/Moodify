@@ -8,12 +8,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import polarplot
 import songrecommendations
 
-#from dotenv import load_dotenv
-#load_dotenv()
-
-#from dotenv import load_dotenv
-#load_dotenv()
-
 # Load credentials from secrets or environment variables
 SPOTIPY_CLIENT_ID = st.secrets.get("SPOTIPY_CLIENT_ID")
 SPOTIPY_CLIENT_SECRET = st.secrets.get("SPOTIPY_CLIENT_SECRET")
